@@ -16,14 +16,14 @@ void setup() {
   pinMode(IN4, OUTPUT); // Set IN4 pin as output
 }
 
-// Movement functions
+// Movement functions  
 void forward(int speed) {
   digitalWrite(IN1, HIGH); // Set IN1 pin of motor A to HIGH
   digitalWrite(IN2, LOW);  // Set IN2 pin of motor A to LOW
   digitalWrite(IN3, HIGH); // Set IN3 pin of motor B to HIGH
   digitalWrite(IN4, LOW);  // Set IN4 pin of motor B to LOW
   analogWrite(ENA, speed); // Set PWM value for ENA pin to control speed of motor A
-  analogWrite(ENB, speed); // Set PWM value for ENB pin to control speed of motor B
+  analogWrite(ENB, speed); // Set PWM value for ENB pin to control speed of motor B     
 }
 
 void reverse(int speed) {
@@ -34,7 +34,7 @@ void reverse(int speed) {
   analogWrite(ENA, speed); // Set PWM value for ENA pin to control speed of motor A
   analogWrite(ENB, speed); // Set PWM value for ENB pin to control speed of motor B
 }
-
+\\ so basically to go left right motor is high and left motor is low going reverse
 void left(int speed) {
   digitalWrite(IN1, LOW);  // Set IN1 pin of motor A to LOW
   digitalWrite(IN2, HIGH); // Set IN2 pin of motor A to HIGH
@@ -43,7 +43,7 @@ void left(int speed) {
   analogWrite(ENA, speed); // Set PWM value for ENA pin to control speed of motor A
   analogWrite(ENB, speed); // Set PWM value for ENB pin to control speed of motor B
 }
-
+\\ so basically to go right, left motor is high and right motor is low going reverse
 void right(int speed) {
   digitalWrite(IN1, HIGH); // Set IN1 pin of motor A to HIGH
   digitalWrite(IN2, LOW);  // Set IN2 pin of motor A to LOW
@@ -54,3 +54,4 @@ void right(int speed) {
 }
 
 void stop() {
+\\ tasks in my opnion to achive after we optimize this code is to integrate this within Arduino and get a physical motor running hopefully
