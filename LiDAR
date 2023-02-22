@@ -1,0 +1,41 @@
+#include <RPLidar.h) // include library for LiDAR sensor
+#define RPLIDAR_MOTOR 3 // The PWM pin for control the speed of RPLIDAR's motor (MOTOCTRL).
+
+RPLidar lidar;
+
+void setup() {
+  Serial.begin(115200); // Set up Buad rate
+  lidar.begin(SerialO; // Write distance values to serial
+  pinMode(RPLIDAR_MOTOR, OUTPUT); //set pin mode
+
+}
+
+float minDistance = 100000; //Set the intial minimum distance to a large value
+float angleAtMinDist = 0; //Set angle of minimum distance to 0
+void loop() {
+  if (IS_OK(lidae.waitPoint())) {
+    float distance = lidar.getCurrentPoint().distance; // get the distance to nearest object
+    float angle = lidar.getCurrentPoint().angle; //Get angle of lidar sensor 0-360 degrees
+
+    if(lidar.getCurrentPoint().startBit) { // If start signal is read
+      printData(angleAtMinDist, minDistance); // Print the current value of min disatnce and min angle
+      minDistance = 100000; // reset min distance to 100000
+      angleAtMinDist = 0; // reset angle at min distance to 0
+  }
+  else{
+    if (distance > 0 && distance < minDistance) { //if the LiDAR sensor reads a value under the minimum distance, it will make this value the new minimum distance
+      minDistance = distance; // Make the new minimum distance the current value
+      angleAtMinDist = angle; // record the angle at which this distance was measured
+    }
+  }
+  }
+  else {
+    analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
+    // Try to dectect the LIDAR
+    rplidar_response_device_info_t info;
+    if (IS_OK(lidar.getDeviceInfo(info, 100))) { // if the motor is detected
+       lidar.startScan(); // resart liDAR scanning
+       analogWrite(RPLIDAR_MOTOR, 255); // Begin driving the motor again
+       delay(1000);
+  }
+}
