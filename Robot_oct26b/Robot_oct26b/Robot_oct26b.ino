@@ -59,11 +59,42 @@ void setup(){
 }
 
 
+int temp = 25;
+int co2 = 500;
+int pm25 = 20;
+
+unsigned long previousMillis = 0;
+unsigned long currentMillis;
+const long interval = 5000;
+
 void loop(){
+  /*
   ArduinoCloud.update();
   digitalWrite(LED_BUILTIN, HIGH);
-  led = true;
-  sensor_data = "led on";
+  
+  sensor_data = "led on \n led off";
+  ArduinoCloud.update();
+  sensor_data = "Temperature: 20 degrees";
+  */
+
+ 
+  ArduinoCloud.update();
+  Serial.print("Motor movement: ");
+  Serial.print(forward_back);
+  Serial.print(", ");
+  Serial.println(right_left);
+
+  currentMillis = millis();
+  if (currentMillis - previousMillis >= interval){
+    previousMillis = currentMillis;
+
+    sensor_data = "Temperature = " + String(temp) + "\nCarbon Dioxide: " + String(co2) + "\nPM25: " + String(pm25);
+    temp++;
+    co2++;
+    pm25++;
+    ArduinoCloud.update();
+  }
+
   
   //digitalWrite(LED_BUILTIN, LOW);
   //sensor_data = "led off";
