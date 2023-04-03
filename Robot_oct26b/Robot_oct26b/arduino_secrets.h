@@ -1,2 +1,4 @@
-#define SECRET_SSID "IEEE@175"
-#define SECRET_OPTIONAL_PASS "connect@175"
+// Where wifi name and password is stored
+
+#define SECRET_SSID "WolfieNet-IoT"
+#define SECRET_OPTIONAL_PASS ""

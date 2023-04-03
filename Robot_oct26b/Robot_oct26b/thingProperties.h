@@ -2,6 +2,8 @@
 
 #include <ArduinoIoTCloud.h>
 #include <Arduino_ConnectionHandler.h>
+#include "arduino_secrets.h"
+#include "motor_control.h"
 
 const char SSID[]     = SECRET_SSID;    // Network SSID (name)
 const char PASS[]     = SECRET_OPTIONAL_PASS;    // Network password (use for WPA, or use as key for WEP)
@@ -10,6 +12,15 @@ void onSensorDataChange();
 void onForwardBackChange();
 void onRightLeftChange();
 void onLEDChange();
+
+void nextMove();
+void stop();
+void forward();
+void backward();
+void right();
+void left();
+
+uint8_t speed;  // Speed value for PWM pin to motor drive enable pin
 
 String sensor_data;
 int forward_back;
