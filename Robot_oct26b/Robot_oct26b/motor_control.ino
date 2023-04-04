@@ -3,39 +3,37 @@
 
 */
 
-
 void nextMove(){
   // Function to read/write variables between MKR1010 and cloud
   // ArduinoCloud.update();
 
   // Stop robot, forward/back slider between -10 and 10
-  if((forward_back < 10) && (forward_back > -10)){
+  if((forward_back <= STOP_UPPER_BOUND) && (forward_back >= STOP_LOWER_BOUND)){
     stop();
     return;
   }
   // Move right, left_right slider above 10
-  if (right_left > 10){
+  if (right_left > STOP_UPPER_BOUND){
     right();
     return;
   }
   // Move left, left_right slider below 10
-  if (right_left < -10){
+  if (right_left < STOP_LOWER_BOUND){
     left();
     return;
   }
   // Move forward, forward_back slider above 10
-  if (forward_back > 10){
+  if (forward_back > STOP_UPPER_BOUND){
     forward();
     return;
   }
   // Move backward, forward_back slider below -10
-  if (forward_back < -10){
+  if (forward_back < STOP_LOWER_BOUND){
     backward();
     return;
   }
 
 }
-
 
 /*************************************
 *********** DIRECTIONS ***************
@@ -58,7 +56,7 @@ void forward(){
   digitalWrite(LEFT_MOTORS_1, 1);
   digitalWrite(LEFT_MOTORS_2, 0);
 
-  Serial.print("Robot is moving forward, at speed: ");
+  Serial.print("Moving forward, at speed: ");
   Serial.print(forward_back);
   Serial.print(", ");
   Serial.println(speed);
@@ -67,7 +65,7 @@ void forward(){
 void backward(){
   // Take backward slider speed value and adjust it to range of PWM speed pin
   // left_right is the slider value in range of -10 to -50, translated to range of 0-255 for speed value
-  speed = map(forward_back, -10, -50, 0, 255);
+  speed = map(abs(forward_back), 10, 50, 0, 255);
   analogWrite(ENABLE_SPEED, speed);
 
   // Set direction of motor spin to move backward
@@ -76,7 +74,7 @@ void backward(){
   digitalWrite(LEFT_MOTORS_1, 0);
   digitalWrite(LEFT_MOTORS_2, 1);
 
-  Serial.print("Robot is moving backward, at speed: ");
+  Serial.print("Moving backward, at speed: ");
   Serial.print(forward_back);
   Serial.print(", ");
   Serial.println(speed);
@@ -94,7 +92,7 @@ void right(){
   digitalWrite(LEFT_MOTORS_1, 1);
   digitalWrite(LEFT_MOTORS_2, 0);  
 
-  Serial.print("Robot is turning right, at speed: ");
+  Serial.print("Turning right, at speed: ");
   Serial.print(forward_back);
   Serial.print(", ");
   Serial.print(right_left);
@@ -105,7 +103,7 @@ void right(){
 void left(){
   // Take forward slider speed value and adjust it to range of PWM speed pin
   // left_right is the slider value in range of -10 to -50, translated to range of 0-255 for speed value
-  speed = map(abs(forward_back), -10, -50, 0, 255);
+  speed = map(abs(forward_back), 10, 50, 0, 255);
   analogWrite(ENABLE_SPEED, speed);
 
   // Set direction of motor spin to turn left
@@ -114,7 +112,7 @@ void left(){
   digitalWrite(LEFT_MOTORS_1, 0);
   digitalWrite(LEFT_MOTORS_2, 1);
 
-  Serial.print("Robot is turning left, at speed: ");
+  Serial.print("Turning left, at speed: ");
   Serial.print(forward_back);
   Serial.print(", ");
   Serial.print(right_left);

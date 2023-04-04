@@ -58,4 +58,5 @@ void initProperties(){
 
 }
 
+// Function to connect Arduino to Wifi
 WiFiConnectionHandler ArduinoIoTPreferredConnection(SSID, PASS);
