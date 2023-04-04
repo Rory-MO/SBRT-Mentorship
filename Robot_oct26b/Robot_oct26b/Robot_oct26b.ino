@@ -9,6 +9,11 @@ void setup(){
   Serial.begin(9600);
   delay(1500);
   
+  // A1M8 LiDAR Setup
+  Serial1.begin(115200);   // Set up UART
+  pinMode(LIDAR_MOTOR, 1); // Motor that spins LiDAR
+  lidar.begin(Serial1);
+
   // Initialize IoT Cloud variables
   initProperties();
   

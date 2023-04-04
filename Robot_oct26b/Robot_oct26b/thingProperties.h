@@ -1,6 +1,8 @@
 #include <ArduinoIoTCloud.h>
 #include <Arduino_ConnectionHandler.h>
 #include "arduino_secrets.h"
+#include <RPLidar.h>
+#include <Wire.h>
 
 // Motor driver pin directives
 #define ENABLE_SPEED    0
@@ -33,7 +35,17 @@ int forward_back;
 int right_left;
 bool led;
 
-// Sensor values to be measured
+// Collision avoidance
+#define LIDAR_MOTOR 6
+RPLidar lidar;
+
+// Sensors
+#define ADC     A0
+#define SDA     11
+#define SCL     12
+
+void carbonMonoxide();
+
 uint8_t CO = 0;           // MQ7
 uint8_t CO2 = 1;          // Sensirion
 uint8_t Humidity = 2;     // Sensirion
