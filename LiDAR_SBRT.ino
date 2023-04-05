@@ -1,6 +1,6 @@
 #include <RPLidar.h>
 #define RPLIDAR_MOTOR 12 // The PWM pin for control the speed of RPLIDAR's motor (MOTOCTRL).
-#define COLLISION_DISTANCE 200 // Min distnace before robot is forced to stop MUST BE GREATER THAN 100
+#define COLLISION_DISTANCE 200 // Min distnace before robot is forced to stop MUST BE GREATER THAN 70
 RPLidar lidar;
                       
 void setup() {
