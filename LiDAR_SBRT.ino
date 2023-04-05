@@ -16,7 +16,7 @@ void setup() {
 void loop() {
   if (IS_OK(lidar.waitPoint())) {
     //perform data processing here... 
-    float distance = lidar.getCurrentPoint().distance; //Get distance in mm
+    float distance = lidar.getCurrentPoint().distance - 30; //Get distance in mm, 30mm offset
     float angle = lidar.getCurrentPoint().angle;  // 0-360 deg
     //If the obstacle is within the collsion distance and the angle infront of the robot, stop
      if((angle > 330 || angle < 30) && distance > 0 && distance < COLLISION_DISTANCE)  { 
