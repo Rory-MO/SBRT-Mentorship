@@ -1,6 +1,6 @@
 #include <RPLidar.h>
 #define RPLIDAR_MOTOR 12 // The PWM pin for control the speed of RPLIDAR's motor (MOTOCTRL).
-#define COLLISION_DISTANCE 200
+#define COLLISION_DISTANCE 200 // Min distnace before robot is forced to stop
 RPLidar lidar;
                       
 void setup() {
@@ -10,27 +10,29 @@ void setup() {
   pinMode(RPLIDAR_MOTOR, OUTPUT);  // set pin modes
 }
 
-float Crash = 200;
+
 
 
 void loop() {
   if (IS_OK(lidar.waitPoint())) {
     //perform data processing here... 
-    float distance = lidar.getCurrentPoint().distance;
+    float distance = lidar.getCurrentPoint().distance; //Get distance in mm
     float angle = lidar.getCurrentPoint().angle;  // 0-360 deg
-    
-     if((angle > 330 || angle < 30) && distance > 0 && distance < Crash)  { 
+    //If the obstacle is within the collsion distance and the angle infront of the robot, stop
+     if((angle > 330 || angle < 30) && distance > 0 && distance < COLLISION_DISTANCE)  { 
       printData(angle, distance);
+      //stop();
+      //return;
      }
   }
   else {
-    analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
+    analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor if unresponsive
     // Try to detect RPLIDAR
     rplidar_response_device_info_t info;
     if (IS_OK(lidar.getDeviceInfo(info, 100))) {
        // Detected
        lidar.startScan();
-       analogWrite(RPLIDAR_MOTOR, 255);
+       analogWrite(RPLIDAR_MOTOR, 255); // If the lidar is responsive resume motor
        delay(1000);
     }
   }
