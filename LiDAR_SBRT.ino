@@ -42,6 +42,7 @@ void printData(float angle, float distance)
 {
   Serial.print("dist: ");
   Serial.print(distance);
+  Serial.print(" mm");
   Serial.print("    angle: ");
   Serial.println(angle);
 }
