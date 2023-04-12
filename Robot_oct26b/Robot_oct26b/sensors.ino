@@ -1,6 +1,3 @@
-
-
-
 void carbonMonoxide(){
   
 }
@@ -46,4 +43,29 @@ void pressure()
     Serial.println("new");
     delay(5000);
     
+}
+
+void light(){
+  //ADDR pin is left floating
+  //VDD is connected to 3.3V
+
+  //uint16_t x = tsl.getLuminosity(TSL2561_VISIBLE);
+  //uint16_t x = tsl.getLuminosity(TSL2561_FULLSPECTRUM);
+  //uint16_t x = tsl.getLuminosity(TSL2561_INFRARED);
+
+  //Serial.print(x, DEC);
+  //Serial.print("\t");
+
+  // More advanced data read example. Read 32 bits with top 16 bits IR, bottom 16 bits full spectrum
+  // That way you can do whatever math and comparisons you want!
+  uint32_t lum = tsl.getFullLuminosity();
+  uint16_t ir, full;
+  ir = lum >> 16;
+  full = lum & 0xFFFF;
+
+  int visibleLight = full-ir;
+  Serial.print("Visible Light: "); Serial.print(visibleLight);   Serial.print("\t");
+  //Serial.print("Infared Light: "); Serial.print(ir);   Serial.print("\t");
+  //Serial.print("Full rangle: "); Serial.print(full);   Serial.print("\t");
+  Serial.print("\n");
 }

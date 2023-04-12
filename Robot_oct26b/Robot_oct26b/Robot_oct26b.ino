@@ -29,6 +29,14 @@ void setup(){
  */
   //setDebugMessageLevel(2);
   //ArduinoCloud.printDebugInfo();
+
+  //TSL2561 Light Sensor Setup
+  //the TSL2561 Light Sensor will have an address of 
+  TSL2561 tsl(0x39);
+  tsl.setGain(TSL2561_GAIN_16X);      // set 16x gain (for dim situations)
+  //tsl.setGain(TSL2561_GAIN_0X);         // set no gain (for bright situtations)
+  tsl.setTiming(TSL2561_INTEGRATIONTIME_13MS);
+
   
   Serial.println("Setup finished");
 }
