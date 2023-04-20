@@ -9,7 +9,7 @@ void pressure()
 
     int sensor = 11;
     int sensor1 = 12;
-    int pcomp,pressure;
+    int pcomp,Pressure;
   
     long arr[20];
     int index = 0;
@@ -37,7 +37,7 @@ void pressure()
     arr[10] = arr[10] << 8 || arr[11];//c12
     pcomp = arr[4] + (arr[6] + arr[10] * arr[2]) * arr[0] + arr[8] + arr[2];
     pcomp = pcomp * ((115-50)/1023) + 50;
-    pressure = pcomp;
+    Pressure = pcomp;
     Serial.print("PCOMP = ");
     Serial.println(pcomp);
     Serial.println("new");
@@ -64,6 +64,7 @@ void light(){
   full = lum & 0xFFFF;
 
   int visibleLight = full-ir;
+  int Light = visibleLight; 
   Serial.print("Visible Light: "); Serial.print(visibleLight);   Serial.print("\t");
   //Serial.print("Infared Light: "); Serial.print(ir);   Serial.print("\t");
   //Serial.print("Full rangle: "); Serial.print(full);   Serial.print("\t");
