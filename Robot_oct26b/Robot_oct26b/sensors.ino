@@ -64,7 +64,7 @@ void light(){
   full = lum & 0xFFFF;
 
   int visibleLight = full-ir;
-  int Light = visibleLight; 
+  Light = visibleLight; 
   Serial.print("Visible Light: "); Serial.print(visibleLight);   Serial.print("\t");
   //Serial.print("Infared Light: "); Serial.print(ir);   Serial.print("\t");
   //Serial.print("Full rangle: "); Serial.print(full);   Serial.print("\t");
